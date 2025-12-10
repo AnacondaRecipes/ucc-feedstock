@@ -1,2 +1,20 @@
+# ucc supports CUDA enhanced compatibility, but CUDA 12.4 won't support GCC >= 13
+# So, keep CUDA 12.4 for GCC 11.2.0+ compatibility
+# Use latest CUDA 12.x and 13.x for GCC 14.3.0+ compatibility
 cuda_compiler_version:
+  - 12.4                     # [linux]
   - 12.8
+
+c_compiler_version:          # [linux]
+  - 11.2.0                   # [linux]
+  - 14.3.0                   # [linux]
+
+cxx_compiler_version:        # [linux]
+  - 11.2.0                   # [linux]
+  - 14.3.0                   # [linux]
+
+zip_keys:
+  -                          # [linux]
+    - c_compiler_version     # [linux]
+    - cxx_compiler_version   # [linux]
+    - cuda_compiler_version  # [linux]

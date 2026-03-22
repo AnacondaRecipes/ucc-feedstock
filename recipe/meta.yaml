@@ -23,7 +23,6 @@ build:
     - {{ compiler("cuda") }}
     - cuda-cudart-dev
     - nccl
-    - {{ compiler('cxx') }}
 
 requirements:
   build:

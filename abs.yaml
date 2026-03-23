@@ -1,0 +1,3 @@
+# UCC autotools build takes ~57 min on aarch64, exceeding default 2h timeout
+# with overhead. Set 4 hours to provide sufficient margin.
+task_timeout: 14400  # 4 hours

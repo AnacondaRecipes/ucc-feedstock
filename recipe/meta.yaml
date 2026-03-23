@@ -10,7 +10,7 @@ source:
 
 build:
   skip: true  # [(not linux) or cuda_compiler_version in (undefined, "None")]
-  number: 0
+  number: 1
   run_exports:
     - {{ pin_subpackage("ucc") }}
   missing_dso_whitelist:
@@ -23,7 +23,6 @@ build:
     - {{ compiler("cuda") }}
     - cuda-cudart-dev
     - nccl
-    - {{ compiler('cxx') }}
 
 requirements:
   build:
@@ -36,7 +35,7 @@ requirements:
     - libtool
     - make
   host:
-    - ucx
+    - ucx >=1.20
     - cuda-version {{ cuda_compiler_version }}
     - cuda-cudart-dev
     - cuda-nvml-dev

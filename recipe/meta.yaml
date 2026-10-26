@@ -1,18 +1,19 @@
-{% set version = "1.6.0" %}
+{% set name = "ucc" %}
+{% set version = "1.9.0" %}
 
 package:
-  name: ucc
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://github.com/openucx/ucc/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: c77897cdaec2114234504fd9259d5143a6933a8ee51aad52fbc4ad1c9752114d
+  url: https://github.com/openucx/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 88f9d6049f80b7215cc21e2c1be04bab8bf5cc8aac39fa42d1927995b0f8fb4a
 
 build:
   skip: true  # [(not linux) or cuda_compiler_version in (undefined, "None")]
-  number: 1
+  number: 0
   run_exports:
-    - {{ pin_subpackage("ucc") }}
+    - {{ pin_subpackage('ucc') }}
   missing_dso_whitelist:
     - '*libcuda.so*'
     - '*libcudart.so*'
@@ -20,14 +21,14 @@ build:
     - '*libnccl.so*'
   ignore_run_exports_from:
     # allow CPU-only use cases (xref: conda-forge/ucx-split-feedstock#173)
-    - {{ compiler("cuda") }}
+    - {{ compiler('cuda') }}
     - cuda-cudart-dev
     - nccl
 
 requirements:
   build:
-    - {{ compiler('c') }}
     - {{ stdlib('c') }}
+    - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}
     - automake
@@ -35,11 +36,12 @@ requirements:
     - libtool
     - make
   host:
-    - ucx >=1.20
+    - ucx {{ ucx }}
     - cuda-version {{ cuda_compiler_version }}
     - cuda-cudart-dev
     - cuda-nvml-dev
-    - nccl
+    - nccl {{ nccl }}
+    - rdma-core {{ rdma_core }}
   run:
     - {{ pin_compatible("ucx", max_pin="x.x.x") }}
   run_constrained:
@@ -70,6 +72,8 @@ test:
     - test -f $PREFIX/lib/ucc/libucc_ec_cuda.so.1
     - test -f $PREFIX/lib/ucc/libucc_ec_cpu.so.1
     - test -f $PREFIX/bin/.ucc-post-link.sh
+    - test -f $PREFIX/lib/ucc/libucc_sysinfo_cuda.so.1
+    - test -f $PREFIX/lib/ucc/libucc_sysinfo_ib.so.1
 
 
 about:

@@ -3,7 +3,7 @@
 set -xeuo pipefail
 
 ./autogen.sh
-./configure --prefix="${PREFIX}" --with-ucx="${PREFIX}" --with-cuda="${PREFIX}" --with-nccl="${PREFIX}"
+./configure --prefix="${PREFIX}" --with-ucx="${PREFIX}" --with-cuda="${PREFIX}" --with-nccl="${PREFIX}" --with-ibverbs="${PREFIX}"
 make -j $CPU_COUNT
 make install
 
